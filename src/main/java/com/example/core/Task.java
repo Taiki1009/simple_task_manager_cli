@@ -17,35 +17,30 @@ public class Task {
     this.completed = false;
   }
 
-  public String getTitle() {
-    return title;
-  }
-  public void setTitle(String title) {
-    this.title = title;
-  }
-  public int getPriority() {
-    return priority;
-  }
-  public void setPriority(int priority) {
-    this.priority = priority;
-  }
-  public int getImportance() {
-    return importance;
-  }
-  public void setImportance(int importance) {
-    this.importance = importance;
-  }
-  public LocalDate getDeadline() {
-    return deadline;
-  }
-  public void setDeadline(LocalDate deadline) {
-    this.deadline = deadline;
-  }
-  public boolean isCompleted() {
-    return completed;
-  }
-  public void setCompleted(boolean completed) {
-    this.completed = completed;
+  public String getTitle() { return title; }
+  public void setTitle(String title) { this.title = title; }
+
+  public int getPriority() { return priority; }
+  public void setPriority(int priority) { this.priority = priority; }
+
+  public int getImportance() { return importance; }
+  public void setImportance(int importance) { this.importance = importance; }
+
+  public LocalDate getDeadline() { return deadline; }
+  public void setDeadline(LocalDate deadline) { this.deadline = deadline; }
+
+  public boolean isCompleted() { return completed; }
+  public void setCompleted(boolean completed) { this.completed = completed; }
+
+  public String getTaskInfo() {
+    return String.format(
+        "%s|%d|%d|%s|%b",
+        title,
+        priority,
+        importance,
+        deadline,
+        completed
+    );
   }
 
   @Override

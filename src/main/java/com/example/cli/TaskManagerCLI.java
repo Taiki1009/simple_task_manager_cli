@@ -6,8 +6,8 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 public class TaskManagerCLI {
-  private TaskManager taskManager;
-  private Scanner scanner;
+  private final TaskManager taskManager;
+  private final Scanner scanner;
 
   public TaskManagerCLI() {
     taskManager = new TaskManager();
@@ -15,28 +15,22 @@ public class TaskManagerCLI {
   }
 
   public void run() {
-    System.out.println("Task Manager CLI - Welcome!");
-    boolean running = true;
-
-    while (running) {
-      System.out.println("Enter command (add/list/exit):");
-      String command = scanner.nextLine();
-
-      switch (command.trim().toLowerCase()) {
-        case "add":
-          addTask();
-          break;
-        case "list":
-          listTasks();
-          break;
-        case "exit":
-          running = false;
-          break;
-        default:
-          System.out.println("Unknown command.");
+    try (scanner) {
+      System.out.println("Task Manager CLI - Welcome!");
+      boolean running = true;
+      
+      while (running) {
+        System.out.println("Enter command (add/list/exit):");
+        String command = scanner.nextLine();
+        
+        switch (command.trim().toLowerCase()) {
+          case "add" -> addTask();
+          case "list" -> listTasks();
+          case "exit" -> running = false;
+          default -> System.out.println("Unknown command.");
+        }
       }
     }
-    scanner.close();
     System.out.println("Exiting Task Manager CLI.");
   }
 
@@ -57,15 +51,15 @@ public class TaskManagerCLI {
       Task task = new Task(title, priority, importance, deadline);
       taskManager.addTask(task);
       System.out.println("Task added: "+ task);
-    } catch (Exception e) {
+    } catch (NumberFormatException e) {
       System.out.println("Error adding task: " + e.getMessage());
     }
   }
 
   private void listTasks() {
-    System.out.print("Listing tasks:");
+    System.out.println("Listing tasks:");
     for (Task task : taskManager.getTasks()) {
-      System.out.print(task);
+      System.out.println(task);
     }
   }
 

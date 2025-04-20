@@ -1,17 +1,20 @@
 package com.example.core;
 
-import java.util.ArrayList;
+import com.example.storage.TaskStorage;
 import java.util.List;
 
 public class TaskManager {
-  private List<Task> tasks;
+  private final List<Task> tasks;
+  private final TaskStorage storage;
 
   public TaskManager() {
-    tasks = new ArrayList<>();
+    storage = new TaskStorage();
+    tasks = storage.loadTasks();
   }
 
   public void addTask(Task task) {
     tasks.add(task);
+    storage.saveTasks(tasks);
   }
 
   public List<Task> getTasks() {

@@ -1,0 +1,22 @@
+# コンパイル後のクラスファイル
+*.class
+
+# ビルド成果物フォルダ
+/target/
+/build/
+/out/
+
+# データ保管先
+/data/
+
+# VSCode
+.vscode/
+# macOS
+.DS_Store
+# 環境変数
+.env
+
+# logs/ ディレクトリ以下すべて除外
+logs/
+# ただし logs/keep.log だけは管理対象に戻す
+!logs/keep.log
