@@ -20,12 +20,14 @@ public class TaskManagerCLI {
       boolean running = true;
       
       while (running) {
-        System.out.println("Enter command (add/list/exit):");
+        System.out.println("Enter command (add/list/complete/notify/exit):");
         String command = scanner.nextLine();
         
         switch (command.trim().toLowerCase()) {
           case "add" -> addTask();
           case "list" -> listTasks();
+          case "complete" -> completeTask();
+          case "notify" -> notifyWeekly();
           case "exit" -> running = false;
           default -> System.out.println("Unknown command.");
         }
@@ -61,6 +63,23 @@ public class TaskManagerCLI {
     for (Task task : taskManager.getTasks()) {
       System.out.println(task);
     }
+  }
+
+  private void completeTask() {
+    listTasks();
+    System.out.println("Enter the index of the task to mark as completed:");
+    int index = Integer.parseInt(scanner.nextLine());
+    boolean success = taskManager.completeTask(index);
+    if (success) {
+        System.out.println("Task marked as completed.");
+    } else {
+        System.out.println("Invalid index.");
+    }
+  }
+
+  private void notifyWeekly() {
+    int completedCount = taskManager.getWeeklyCompletedCount();
+    System.out.println("Weekly Notification: " + completedCount + " tasks were completed in the last week.");
   }
 
   public static void main(String[] args) {

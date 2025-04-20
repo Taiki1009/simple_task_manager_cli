@@ -15,8 +15,10 @@ public class TaskStorage {
   public void saveTasks(List<Task> tasks) {
     try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_NAME))) {
       for (Task task : tasks) {
-        // フィールド: title|priority|importance|deadline|copleted
-        writer.println(task.getTaskInfo());
+        // フィールド: title|priority|importance|deadline|copleted|completionDate
+        // タスクが未完了の場合は"null"と記載する
+        String completionDateStr = task.getCompletionDate() != null ? task.getCompletionDate().toString() : "null";
+        writer.println(task.getTaskInfo() + "|" + completionDateStr);
       }
     } catch (IOException e) {
       System.out.println("Error saving tasks: " + e.getMessage());
@@ -38,9 +40,11 @@ public class TaskStorage {
           int importance = Integer.parseInt(parts[2]);
           LocalDate deadline = LocalDate.parse(parts[3]);
           boolean completed = Boolean.parseBoolean(parts[4]);
+          LocalDate completionDate = "null".equals(parts[5]) ? null : LocalDate.parse(parts[5]);
 
           Task task = new Task(title, priority, importance, deadline);
           task.setCompleted(completed);
+          task.setCompletionDate(completionDate);
           tasks.add(task);
        }
       }
