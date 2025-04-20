@@ -1,0 +1,19 @@
+{
+  "name": "Java Dev Container",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "workspaceFolder": "/workspace",
+  "mounts": [
+    "source=${localWorkspaceFolder},target=/workspace,type=bind"
+  ],
+  "customizations": {
+    "vscode": {
+      "extension": [
+        "redhat.java",
+        "vscjava.vscode-java-pack"
+      ],
+      "settings": {}
+    }
+  }
+}
